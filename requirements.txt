@@ -1,1 +1,1 @@
-py-cord @ master
+git+https://github.com/Pycord-Development/pycord
