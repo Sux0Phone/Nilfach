@@ -40,9 +40,7 @@ async def post_number_worker():
     port = url.port
     conn = await asyncpg.connect(database=dbname, user=user, password=password, host=host, port=port)
     post_number = await conn.fetchval('SELECT post_id FROM post_ids')
-    print(post_number, type(post_number))
     post_number += 1
-    print(post_number) 
     await conn.execute('UPDATE post_ids SET post_id=$1 WHERE temp_id=1', post_number)
     await conn.close()
     return str(post_number)
