@@ -116,7 +116,11 @@ async def captcha_check(ctx):
 @commands.cooldown(1, 86400, commands.BucketType.user) #1 день
 async def create_thread(ctx):
     """Создать тред."""
-    if CAPTCHA_MODE == True and WHITELIST_MODE == True and ctx.author.id not in WHITELIST_IDS:
+    if CAPTCHA_MODE == True and WHITELIST_MODE == False:
+        captcha_check_result = await captcha_check(ctx)
+        if captcha_check_result == False:
+            return
+    elif CAPTCHA_MODE == True and WHITELIST_MODE == True and ctx.author.id not in WHITELIST_IDS:
         captcha_check_result = await captcha_check(ctx)
         if captcha_check_result == False:
             return
@@ -209,7 +213,11 @@ async def create_thread(ctx):
 @commands.cooldown(1, 300, commands.BucketType.user) #5 минут
 async def post(ctx):
     """Написать в тред."""
-    if CAPTCHA_MODE == True and WHITELIST_MODE == True and ctx.author.id not in WHITELIST_IDS:
+    if CAPTCHA_MODE == True and WHITELIST_MODE == False:
+        captcha_check_result = await captcha_check(ctx)
+        if captcha_check_result == False:
+            return
+    elif CAPTCHA_MODE == True and WHITELIST_MODE == True and ctx.author.id not in WHITELIST_IDS:
         captcha_check_result = await captcha_check(ctx)
         if captcha_check_result == False:
             return
